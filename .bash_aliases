@@ -164,6 +164,7 @@ alias .gitlog="echo ; git branch --verbose ; echo ; git log --graph --oneline --
 alias .history="history | sort -k1.9 -V | grep -i"
 alias .if="cat ~/bin/if_.txt"
 alias .ifconfig="ifconfig | grep inet\ "
+alias .ld="l | grep ^d"
 alias .lsof_tcp="sudo lsof -i -P -n | sort -k1.56 -Vru"
 alias .myfixXtermTitle=". $BBHOME/bin/UTY_myfixXtermTitle.sh"
 alias .now='now -nc'
