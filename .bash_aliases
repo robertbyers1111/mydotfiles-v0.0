@@ -178,6 +178,8 @@ alias .tf="tail -250f"
 alias .tmp="pushd $BBHOME/tmp"
 alias .vimrc="gvim $BBHOME/.vimrc_rbyers"
 
+[ -d $BBHOME/GitAhead ] && alias .gahead="$BBHOME/GitAhead/GitAhead &"
+
 /usr/bin/which --all screen > /dev/null 2>&1
 [ $? -eq 0 ] && {
     alias .sclist="screen -list"
