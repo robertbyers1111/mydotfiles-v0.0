@@ -1,0 +1,31 @@
+
+# REVERT A CHANGE (use 'git revert')
+# 'revert HEAD' is the simplest way to undo a change. 'git revert HEAD' merely
+# undoes the most recent commit and posts it as a new commit.
+    git revert HEAD
+
+# Discard an uncommitted change
+    git log #(find the ref <ID>)
+    git reset --hard <ID>
+
+# Pull in latest rabbit-dev to my branch
+    git pull origin rabbit-dev
+
+# git diff
+    git diff rabbit-dev -- <file>
+
+# git log examples..
+    git log --oneline
+    git log --oneline --author=rbyers
+    git log --after=7/4/1776 --before=7/4/1976
+    git log --since=7/4 --until=12/25
+    git log -L 235,288:mydemo.py
+    git log -L :doit:mydemo.py
+
+# Show files in a commit
+    git show --name-only --pretty="" 4b12b8ec1
+
+# Find branches
+    git branch --list -a *stabilization*
+    git branch --list -a *stabilization* -v
+

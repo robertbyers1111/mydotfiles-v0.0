@@ -1,0 +1,12 @@
+avidemux*
+OLDBIN*
+transmission
+*Cache
+Cookies
+get-pip.py
+google-chrome/Default/Extensions
+google-chrome/Default/History
+google-chrome/Default/Media History
+google-chrome/Default/Visited Links
+google-chrome/Default/Web Data
+google-chrome/Dictionaries
