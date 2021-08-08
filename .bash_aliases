@@ -29,89 +29,6 @@ export PUBLIC_HTML=$BBHOME/public_html
 export MEGA=$BBHOME/MEGA/MEGAsync
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-practice_python_via_github_uty()
-{
-    PYHELPDIR=~/public_html/python
-    PRACBASE=PracticePython
-
-    case $1 in
-
-        -h)
-            echo
-            echo "USAGE: practice_python_via_github_uty [-h|-l|-o|-n]"
-            echo "    -h help"
-            echo "    -l list existing practice directories"
-            echo "    -o cd to most recently created practice directory"
-            echo "    -n create and initialize a new practice directory (default)"
-            echo
-        ;;
-
-        -l)
-            /bin/ls --time-style="+%Y-%m-%d %H:%M:%S" --group-directories-first -lLFANGvd $PYHELPDIR/$PRACBASE* | sed 's@/home/[^/][^/]*/@~/@'
-        ;;
-
-        -o)
-            PRACLAST=`/bin/ls -1d $PYHELPDIR/$PRACBASE* | tail -1`
-            pushd $PRACLAST > /dev/null
-            echo "git: " `git status --short`
-            echo "pwd: " `pwd | sed 's@/home/[^/][^/]*/@~/@'`
-        ;;
-
-        -n|*)
-            echo new
-            NOW=`date +%Y-%m%d-%H%M`
-
-            CLONEDIR_ORIGNAME=$PRACBASE
-            CLONEDIR_ORIGNAME_FPATH=$PYHELPDIR/$CLONEDIR_ORIGNAME
-            CLONEDIR_RENAMED=$PRACBASE-$NOW
-            CLONEDIR_RENAMED_FPATH=$PYHELPDIR/$CLONEDIR_RENAMED
-            TESTNAME=test_$NOW
-            TEMPLATE_NAME=TEMPLATE.py
-
-            echo
-            echo "          CLONEDIR_ORIGNAME:  $CLONEDIR_ORIGNAME"
-            echo "    CLONEDIR_ORIGNAME_FPATH:  $CLONEDIR_ORIGNAME_FPATH"
-            echo "           CLONEDIR_RENAMED:  $CLONEDIR_RENAMED"
-            echo "     CLONEDIR_RENAMED_FPATH:  $CLONEDIR_RENAMED_FPATH"
-            echo "                   TESTNAME:  $TESTNAME"
-            echo "              TEMPLATE_NAME:  $TEMPLATE_NAME"
-
-            cd $PYHELPDIR
-
-            echo
-            echo "pwd: " `pwd | sed 's@/home/[^/][^/]*/@~/@'`
-            echo "cmd:  % git clone git@github.com:robertbyers1111/PracticePython.git"
-            echo
-
-            git clone git@github.com:robertbyers1111/PracticePython.git
-            echo
-
-            [ ! -d $CLONEDIR_ORIGNAME ] && { echo Uh oh, here comes a flock of wah wahs; exit; }
-            echo "cmd:  % mv $CLONEDIR_ORIGNAME $CLONEDIR_RENAMED"
-            mv $CLONEDIR_ORIGNAME $CLONEDIR_RENAMED
-
-            [ ! -d $CLONEDIR_RENAMED ] && { echo Uh oh, here comes a second flock of wah wahs; exit; }
-            cd $CLONEDIR_RENAMED_FPATH
-            echo "pwd: " `pwd | sed 's@/home/[^/][^/]*/@~/@'`
-
-            [ ! -f $TEMPLATE_NAME ] && { echo Uh oh, here comes a third flock of wah wahs; exit; }
-            echo "cmd:  % cp -fn $TEMPLATE_NAME $TESTNAME.py"
-            cp -fn $TEMPLATE_NAME $TESTNAME.py
-
-            [ ! -f $TESTNAME.py ] && { echo Uh oh, here comes a third flock of wah wahs; exit; }
-            chmod -x *.py
-            chmod +x $TESTNAME.py
-
-            echo "pwd: " `pwd | sed 's@/home/[^/][^/]*/@~/@'`
-            echo "git: " `git status --short`
-
-            echo "cmd:  % gvim $TESTNAME.py"
-            gvim $TESTNAME.py
-        ;;
-    esac
-}
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # These *should* work anywhere
 
 alias -- -="cd -"
@@ -131,7 +48,6 @@ alias del="rm"
 alias dus="$BBHOME/bin/.dus.sh"
 alias fh="file -h"
 alias grep="grep -E --color=auto"
-alias gwenview="echo .local/share/Trash/{info,files} ; /usr/bin/gwenview ; echo .local/share/Trash/{info,files}"
 alias h2d="hex2dec"
 alias igrep="grep -Ei --color=auto"
 alias lssz="l -Sr | .commify"
@@ -208,7 +124,6 @@ alias .mktemp='cat $PUBLIC_HTML/unix/mktemp.txt'
 alias .notinstalled="( echo aptitude search \\\"\?not\(\?installed\)\\\" ; aptitude search \"?not(?installed)\" ; echo aptitude search \\\"\?not\(\?installed\)\\\" )"
 alias .perl='pushd $PUBLIC_HTML/perl'
 alias .ping='cat $PUBLIC_HTML/unix/ping.txt'
-alias .practice_python=practice_python_via_github_uty
 alias .public='pushd $PUBLIC_HTML'
 alias .py='pushd $PUBLIC_HTML/python'
 alias .read='cat $PUBLIC_HTML/sh/read_file_or_pipe.sh'
@@ -272,6 +187,22 @@ case $HOSTNAME in
 
 esac
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# PracticePython v0.3
+
+practice_python_via_github_uty()
+{
+    PYHELPDIR=~/public_html/python
+    PRACTICEDIR=PracticePython
+    PRACTICEFULLPATHR=$PYHELPDIR/$PRACTICEDIR
+    [ ! -d $PRACTICEFULLPATHR ] && { echo ENOEXIST: $PRACTICEFULLPATHR; exit; }
+    pushd $PRACTICEFULLPATHR > /dev/null
+    echo "pwd: `pwd | sed 's@/home/[^/][^/]*/@~/@'`"
+    git status
+}
+
+alias .practice_python=practice_python_via_github_uty
+
 #-----------------------------------------------------------------------
 #--
 #-- Oddity with tab completion..
@@ -323,6 +254,7 @@ esac
 #   alias dus="du -h --max-depth=1 . | sort -h" (dus.sh allows $1 instead of hard-coded '.')
 #   alias find="/usr/bin/find -xdev"
 #   alias gv="gvim -geom=999x222"
+#   alias gwenview="echo .local/share/Trash/{info,files} ; /usr/bin/gwenview ; echo .local/share/Trash/{info,files}"
 #   alias jj="JJscreen.tcl"
 #   alias lc="~rmbjr60/bin/lsal | commify"
 #   alias lc="$RMBJR60/bin/lsal | commify"
@@ -406,4 +338,3 @@ esac
 #
 #   alias vi="vim -X -u $RMBJR60/.vimrc"
 #------------------------------------------------------------
-#------------
