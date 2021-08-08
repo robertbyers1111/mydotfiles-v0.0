@@ -77,9 +77,8 @@ noremap <C-F3> :set formatoptions-=t<Enter>yyP<Enter>i#---<Bar> <Esc>$a <Bar>---
 " [F4] Toggle ('!') spell check
   noremap <silent> <F4> :set spell!<Enter>
 
-
-" [Alt-F4] Cleanup blank lines:
-  noremap <A-F4> mmMmn:g/^[	 ][	 ]*$/s///<Enter>`nzz`m
+" [Ctrl-F4] Cleanup blank lines:
+  noremap <C-F4> mmMmn:g/^[	 ][	 ]*$/s///<Enter>`nzz`m
 
 " [F5] (for perl filetype): Advance to next perl subroutine (Shift-F5 to seach in reverse)
   autocmd BufNewFile,BufRead *.pl         noremap <F5> /^sub .*<Enter>zz
