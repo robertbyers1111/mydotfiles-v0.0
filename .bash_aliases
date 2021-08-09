@@ -195,7 +195,13 @@ practice_python_via_github_uty()
     PYHELPDIR=~/public_html/python
     PRACTICEDIR=PracticePython
     PRACTICEFULLPATHR=$PYHELPDIR/$PRACTICEDIR
-    [ ! -d $PRACTICEFULLPATHR ] && { echo ENOEXIST: $PRACTICEFULLPATHR; exit; }
+    [ ! -d $PRACTICEFULLPATHR ] && {
+        echo Creating $PRACTICEFULLPATHR
+        mkdir -p $PRACTICEFULLPATHR
+        cd $PRACTICEFULLPATHR
+        cd ..
+        git clone git@github.com:robertbyers1111/PracticePython.git
+    }
     pushd $PRACTICEFULLPATHR > /dev/null
     echo "pwd: `pwd | sed 's@/home/[^/][^/]*/@~/@'`"
     git status
