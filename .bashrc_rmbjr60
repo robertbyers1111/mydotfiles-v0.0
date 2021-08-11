@@ -109,6 +109,11 @@ case $HOSTNAME in
 esac
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# git completion
+
+[ -f $HOME/.git-completion.bash ] && . $HOME/.git-completion.bash
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # (vboxmanage not currently installed as of 2020-10-03)
 # #-- Load bash completions for vboxmanage..
 # COMPLETIONFILE=~/etc/bash_completion.d/vboxmanage-bash-completion-master/VBoxManage
