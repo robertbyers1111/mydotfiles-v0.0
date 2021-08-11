@@ -97,7 +97,7 @@ alias .vimrc="gvim $BBHOME/.vimrc_rbyers"
 [ $? -eq 0 ] && {
 
     alias .glog="echo ; git branch --verbose ; echo ; git log --graph --oneline --all --decorate=full"
-    alias .gstatus="git status"
+    alias .gs="git status"
     alias .glstree="git ls-tree --long -r"
     alias .grepository="UTY_grepository.sh"
 
