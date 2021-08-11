@@ -76,7 +76,6 @@ alias .commify="$BBHOME/bin/commify"
 alias .diff="meld"
 alias .downloads="pushd $BBHOME/Downloads"
 alias .ffx="firefox&"
-alias .gitlog="echo ; git branch --verbose ; echo ; git log --graph --oneline --all --decorate=full"
 alias .history="history | sort -k1.9 -V | grep -i"
 alias .if="cat ~/bin/if_.txt"
 alias .ifconfig="ifconfig | grep inet\ "
@@ -94,7 +93,25 @@ alias .tf="tail -250f"
 alias .tmp="pushd $BBHOME/tmp"
 alias .vimrc="gvim $BBHOME/.vimrc_rbyers"
 
-[ -d $BBHOME/GitAhead ] && alias .gahead="$BBHOME/GitAhead/GitAhead &"
+/usr/bin/which git > /dev/null
+[ $? -eq 0 ] && {
+
+    alias .glog="echo ; git branch --verbose ; echo ; git log --graph --oneline --all --decorate=full"
+    alias .gstatus="git status"
+    alias .glstree="git ls-tree --long -r"
+    alias .grepository="UTY_grepository.sh"
+
+    [ -f $PUBLIC_HTML/github/howtos/gitnotes/gitnotes.md ] && {
+        alias .gitnotes='retext --preview $PUBLIC_HTML/github/howtos/gitnotes/gitnotes.md &'
+    }
+    [ -d $BBHOME/GitAhead ] && {
+        alias .gahead="$BBHOME/GitAhead/GitAhead &"
+    }
+}
+
+[ -f $BBHOME/bin/UTY_practicePython.sh ] && {
+    .  $BBHOME/bin/UTY_practicePython.sh
+}
 
 /usr/bin/which --all screen > /dev/null 2>&1
 [ $? -eq 0 ] && {
@@ -113,8 +130,6 @@ alias .dpkg='cat $PUBLIC_HTML/unix/dpkg.txt'
 alias .eatargs='cat $PUBLIC_HTML/sh/eatargs.sh'
 alias .exitstatus='grep YES $PUBLIC_HTML/unix/grep-cheat.txt'
 alias .for='cat $PUBLIC_HTML/sh/for_viaCmdLine_linuxAndWindows.txt'
-alias .gitnotes='retext --preview $PUBLIC_HTML/github/howtos/gitnotes/gitnotes.md &'
-alias .grepcheat='cat $PUBLIC_HTML/unix/grep-cheat.txt'
 alias .hash='cat $PUBLIC_HTML/perl/hash.pl'
 alias .installed_apt="( aptitude search \"?installed\" ; echo aptitude search \\\"\?installed\\\" )"
 alias .installed_filt="grep -h status.installed /var/log/dpkg* | grep -v 'installed (lib|crypts|texlive|font|desktop-file-utils|doc-base|ghostscript|gnome-menus:|hicolor-icon-theme|initramfs-tools|linux-|man-db:|mime-support:all|mintsystem:all|pulesaudio|python2|samba-|secureboot|sgml|shared-mime-info|systemd:|tex-common|ubuntu-|uuid-|x11proto-|zlib1g)' | sort -V"
@@ -136,6 +151,7 @@ alias .unix='pushd $PUBLIC_HTML/unix'
 alias .vimhelp='pushd $PUBLIC_HTML/vim'
 alias .while=' cat $PUBLIC_HTML/sh/while.sh'
 alias .xargs='cat $PUBLIC_HTML/unix/xargs.sh'
+alias ,grepcheat='cat $PUBLIC_HTML/unix/grep-cheat.txt'
 alias ,minimal='cat $PUBLIC_HTML/python/minimal.py'
 
 case $HOSTNAME in
@@ -186,28 +202,6 @@ case $HOSTNAME in
     ;;
 
 esac
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# PracticePython v0.3
-
-practice_python_via_github_uty()
-{
-    PYHELPDIR=~/public_html/python
-    PRACTICEDIR=PracticePython
-    PRACTICEFULLPATHR=$PYHELPDIR/$PRACTICEDIR
-    [ ! -d $PRACTICEFULLPATHR ] && {
-        echo Creating $PRACTICEFULLPATHR
-        mkdir -p $PRACTICEFULLPATHR
-        cd $PRACTICEFULLPATHR
-        cd ..
-        git clone git@github.com:robertbyers1111/PracticePython.git
-    }
-    pushd $PRACTICEFULLPATHR > /dev/null
-    echo "pwd: `pwd | sed 's@/home/[^/][^/]*/@~/@'`"
-    git status
-}
-
-alias .practice_python=practice_python_via_github_uty
 
 #-----------------------------------------------------------------------
 #--
