@@ -323,7 +323,7 @@ endfunction
   set infercase
   set laststatus=2
   set list
-  set listchars=precedes:<,extends:>
+  set listchars=tab:\ \ ,precedes:<,extends:>
   set matchtime=4
   set nocompatible
   set nowrap         " don't wrap lines
